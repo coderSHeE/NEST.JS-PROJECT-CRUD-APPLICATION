@@ -1,77 +1,54 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { Container } from 'react-bootstrap';
-import Table from 'react-bootstrap/Table';
-
+import { useEffect, useState } from "react";
+import { Container, Table, Row, Col, Button } from "react-bootstrap";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+ 
 const Tablee = () => {
-  const [allclient, setAllClient] = useState([]);
-
+  const [client, setclient] = useState([]);
+  const navigate = useNavigate();
+ 
   useEffect(() => {
-    axios.get('http://localhost:3000/client').then((response) => {
-      setAllClient(response.data);
+    axios.get("http://localhost:4000/client").then((response) => {
+      setclient(response.data);
     });
   }, []);
-
-  const handleRowUpdate = (id, updatedData) => {
-    // Send a PUT request to update the data for the row with the given ID
-    axios.put(`http://localhost:3000/client/${id}`, updatedData).then(() => {
-      // If the request is successful, update the state to re-render the table
-      setAllClient((prevData) =>
-        prevData.map((data) => (data.id === id ? { ...data, ...updatedData } : data))
-      );
-    });
-  };
-
-  const handleRowDelete = (id) => {
-    // Send a DELETE request to delete the row with the given ID
-    axios.delete(`http://localhost:3000/client/${id}`).then(() => {
-      // If the request is successful, update the state to re-render the table
-      setAllClient((prevData) => prevData.filter((data) => data.id !== id));
-    });
-  };
-
+ 
   return (
-    
-    <Container className="mt-2">
-      <Table striped bordered hover size="sm">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Date</th>
-            <th>Brand</th>
-            <th>Transition Type</th>
-            <th>Total Order</th>
-            <th>Total Order Value</th>
-            <th>Grose margin Percentage %</th>
-            <th>Created Date</th>
-            <th>Update Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {allclient.map((data, index) => (
-            <tr key={data.id}>
-              <td>{index + 1}</td>
-              <td>{data.date}</td>
-              <td>{data.brand}</td>
-              <td>{data.transitionType}</td>
-              <td>{data.totalOrder}</td>
-              <td>{data.totalOrderValue}</td>
-              <td>{data.grossMarginPercentage}</td>
-              <td>{data.createdDate}</td>
-              <td>{data.updatedDate}</td>
-              <td>
-                <button onClick={() => handleRowUpdate(data.id, { updatedDate: new Date() })}>
-                  Update
-                </button>
-                <button onClick={() => handleRowDelete(data.id)}>Delete</button>
-              </td>
+    <>
+      <Container className="mt-2">
+        <Row>
+          <Col className="col-md-4 offset-md-4">
+            <Button variant="primary" type="button" onClick={() => navigate('add-data')}>
+              Add
+            </Button>
+          </Col>
+        </Row>
+        <Tablee striped bordered hover>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Brand</th>
+              <th>Transaction Type</th>
+              <th>Total Orders</th>
+              <th>Total Order Value</th>
+              <th>Gross Margin Percentage</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-    </Container>
+          </thead>
+          <tbody>
+            {employees.map((cli) => (
+              <tr key={cli._id}>
+                <td>{cli.date}</td>
+                <td>{cli.brand}</td>
+                <td>{cli.transactionType}</td>
+                <td>{cli.totalOrders}</td>
+                <td>{cli.totalOrderValue}</td>
+                <td>{cli.grossMarginPercentage}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Tablee>
+      </Container>
+    </>
   );
 };
-
-export default Tablee;
+export default  Tablee;
