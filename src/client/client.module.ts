@@ -1,19 +1,12 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ClientSchema } from './schema/client-schema';
+import { BrandSalesDailyController } from './client.controller';
 import { ClientService } from './client.service';
-import { ClientController } from './client.controller';
+import { Client, ClientSchema } from './schema/client-schema';
+
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      {
-        name: 'brandsalelist',
-        schema: ClientSchema,
-        collection: 'brandsalelist',
-      },
-    ]),
-  ],
-  providers : [ClientService],
-  controllers: [ClientController],
+  imports: [MongooseModule.forFeature([{ name: Client.name, schema: ClientSchema }])],
+  controllers: [BrandSalesDailyController],
+  providers: [ClientService],
 })
 export class ClientModule {}
