@@ -1,12 +1,19 @@
-import logo from './logo.svg';
+import {Route , Routes} from 'react-router-dom';
+
 import './App.css';
 import Layout from './components/shared/Layout';
+import { Table } from 'react-bootstrap';
+
 
 function App() {
   return (
       <>
 
-      <Layout><h1>brandsalelist</h1></Layout>
+      <Layout>
+        <Routes>
+          <Route path='/' element={<Table/>}></Route>
+        </Routes>
+      </Layout>
       </>
   );
 }

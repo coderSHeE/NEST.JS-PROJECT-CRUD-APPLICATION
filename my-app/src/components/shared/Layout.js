@@ -5,7 +5,7 @@ const Layout = (Props) => {
   return(
     <>
      <div><h1 style={{justifyContent: 'center', alignItems: 'center', display : 'flex'}}>BrandSaleList</h1></div>
-      <Container>{props.children}</Container>
+      <Container>{Props.children}</Container>
       </>
   );
 };

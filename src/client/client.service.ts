@@ -13,4 +13,9 @@ export class ClientService {
     return await this.clientModel.find().exec();
 
   }
+  async create(client :Client){
+    const newClint = new this.clientModel(client);
+    await newClint.save();
+
+  }
 }
