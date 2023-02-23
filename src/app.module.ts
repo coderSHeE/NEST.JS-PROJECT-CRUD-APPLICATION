@@ -1,10 +1,19 @@
+import { MongooseModule } from '@nestjs/mongoose';
+// existng code hidden for the display purpose
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-
+import { ClientService } from './client/client.service';
+import { ClientModule } from './client/client.module';
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    MongooseModule.forRoot(
+'mongodb+srv://brandlist:123pranshi@projectbrandlist.r5sgdlt.mongodb.net/brandsalelist?retryWrites=true&w=majority '    ),
+   ClientModule,
+  
+  ],
+  providers: [ClientService]
 })
 export class AppModule {}
+
+
+
+
